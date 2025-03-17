@@ -5,7 +5,7 @@ const checkBlocked = require('../middleware/blockCheckMiddleware');
 
 const router = express.Router();
 
-router.get('/', authenticateUser, checkBlocked, async (req, res) => {
+router.get('/', authenticateUser, async (req, res) => {
     try {
         const users = await User.find().sort({ last_login: -1 });
         res.json(users);

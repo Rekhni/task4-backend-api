@@ -11,7 +11,7 @@ const checkBlocked = async (req, res, next) => {
             return res.status(401).json({ message: 'Unauthorized: User not found.' });
         }
         
-        if (!user || user.status === 'blocked') {
+        if (user.status === 'blocked') {
             return res.status(403).json({ message: 'Access denied. Your account is blocked.' });
         }
         next();
