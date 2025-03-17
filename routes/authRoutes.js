@@ -7,19 +7,15 @@ const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || '123';
 
 router.post('/register', async (req, res) => {
-    console.log("📢 Received registration request:", req.body);
     const { name, email, password } = req.body;
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({ name, email, password_hash: hashedPassword });
-        console.log("📢 Attempting to save user:", newUser); 
         await newUser.save();
-        console.log("✅ User saved successfully:", newUser);
 
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
-        console.error("❌ Error saving user:", error); 
         res.status(400).json({ message: 'Email already exists' });
     }
 });
